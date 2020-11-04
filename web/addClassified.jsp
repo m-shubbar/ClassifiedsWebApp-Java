@@ -14,11 +14,14 @@
     <body>
         <h1>Add Classified</h1>
         <hr>
+        <a href="viewAllClassifieds.jsp">View All Classifications</a>
+        <hr>
         <form action="AddClassifiedServlet" method="GET">
-            Product: <input type="text" size="20" name="product"><br>
-            Short Description: <input type="text" size="20" name="shortDesc"><br>
-            Long Description: <textarea name="longDesc"></textarea>
-            <br>
+            Product: <input type="text" size="20" name="product"><br><br>
+            Short Description: <input type="text" size="20" name="shortDesc"><br><br>
+            Long Description: <textarea name="longDesc"></textarea><br><br>
+            Contact Name: <input type="text" name="contactName" size="20"><br><br>
+            Contact Number: <input type="text" name="contactNumber" size="20"><br><br>
             Price: <input type="text" size="20" name="price"><br><br>
             <input type="submit" name="btnAction" value="Add">
             <input type="submit" name="btnAction" value="Cancel">

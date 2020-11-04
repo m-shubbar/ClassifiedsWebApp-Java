@@ -4,13 +4,16 @@
  * and open the template in the editor.
  */
 
+import beans.Classified;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,19 +33,27 @@ public class viewClassifiedServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet viewClassifiedServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet viewClassifiedServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        HttpSession session = request.getSession();
+        
+        ArrayList<Classified> classifieds = 
+                (ArrayList<Classified>) session.getAttribute("classifieds-list");
+        
+        if(classifieds==null) {
+            classifieds = new ArrayList<Classified>();
         }
+        
+        String product = request.getParameter("product");
+        
+        Classified classified = null;
+        
+        for(Classified c : classifieds) {
+            if (c.getProduct().equals(product)) {
+                classified = c;
+            }
+        }
+        
+        session.setAttribute("classified", classified);
+        response.sendRedirect("viewClassifiedDetail.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
